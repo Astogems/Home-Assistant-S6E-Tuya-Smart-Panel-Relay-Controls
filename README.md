@@ -57,13 +57,13 @@ sensor:
 - platform: rest
   resource: http://192.168.2.162:8080/relay1state
   name: Relay 1 State
-  scan_interval: 1
+  scan_interval: 5
   value_template: "{{ value_json }}"
 
 - platform: rest
   resource: http://192.168.2.162:8080/relay2state
   name: Relay 2 State
-  scan_interval: 1
+  scan_interval: 5
   value_template: "{{ value_json }}"
 ```
 
