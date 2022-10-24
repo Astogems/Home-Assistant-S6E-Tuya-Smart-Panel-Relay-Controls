@@ -84,6 +84,12 @@ switch:
 Now you can create a Lovelace Dashboard specially for the Switch and add in these 2 switches to control the built-in relays! Congrats!
 
 
+
+https://user-images.githubusercontent.com/92814513/197577183-cdf58e7d-cf90-43f9-b129-d7dfd5a08847.mp4
+
+
+
+
 ### Disclaimer:
 
 Its not the best method because, if the network or homeassistant goes down. You lose functionality of the switch. This can be easily countered by using the Test Application for emergency purposes or creating a new APK that executes the ADB Shell Command.
