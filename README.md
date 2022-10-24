@@ -87,3 +87,5 @@ Now you can create a Lovelace Dashboard specially for the Switch and add in thes
 ### Disclaimer:
 
 Its not the best method because, if the network or homeassistant goes down. You lose functionality of the switch. This can be easily countered by using the Test Application for emergency purposes or creating a new APK that executes the ADB Shell Command.
+
+## Big Thanks to Blakadder for pointing me in the right direction on Twitter!
