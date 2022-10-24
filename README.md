@@ -48,7 +48,7 @@ rest_command:
   relay2off:
     url: http://192.168.2.162:8080/relay2off
 ```
-### IMPORTANT: While you are at it, input these Restful Sensors as well to report back the state. Remember to upload relaystate.xml into AutoMagic
+### IMPORTANT: While you are at it, input these Restful Sensors as well to report back the state. Remember to upload relaystate.xml into AutoMagic You can also skip this step as I realised the S6E cannot handle the amount of HTTP Requests and actually gets DoSed by Home Assistant itself. Rip. Increasing the Scan Interval can prevent this.
 
 This will essentially retrieve HTTP JSON Response from the Panel to check for the state of the Switch.
 
