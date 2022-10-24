@@ -33,7 +33,7 @@ Assuming you have completed all the guides from Blakadder, you can pick up from 
 
 This will create an Automation to wait for a HTTP Request and then send an ADB Command to trigger the relays.
 
-### 2. Test the trigger to check if it works by entering `http://IPAddressOfDevice:8080/relay1on`, `http://IPAddressOfDevice:8080/relay1off`, `http://IPAddressOfDevice:8080/relay2on`, `http://IPAddressOfDevice:8080/relay2off`
+### 2. Test the trigger to check if it works by entering `http://IPAddressOfDevice:8080/relay1on`, `http://IPAddressOfDevice:8080/relay1off`, `http://IPAddressOfDevice:8080/relay2on`, `http://IPAddressOfDevice:8080/relay2off` on your web browser.
 
 ### 3. Implement a Rest Command Integration into Configuration.yaml
 
