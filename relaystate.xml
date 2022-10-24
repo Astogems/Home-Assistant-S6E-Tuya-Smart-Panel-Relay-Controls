@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<data version="1.38.0">
+  <trigger type="http_request">
+    <useDefaultName>true</useDefaultName>
+    <name>HTTP Request: /relay1state, port 8080</name>
+    <enabled>true</enabled>
+    <path>/relay1state</path>
+    <port>8080</port>
+    <bindToWifiOnly>false</bindToWifiOnly>
+    <acquireWifiLock>true</acquireWifiLock>
+    <finishResponse>false</finishResponse>
+  </trigger>
+  <trigger type="http_request">
+    <useDefaultName>true</useDefaultName>
+    <name>HTTP Request: /relay2state, port 8080</name>
+    <enabled>true</enabled>
+    <path>/relay2state</path>
+    <port>8080</port>
+    <bindToWifiOnly>false</bindToWifiOnly>
+    <acquireWifiLock>true</acquireWifiLock>
+    <finishResponse>false</finishResponse>
+  </trigger>
+  <action type="execute_root_command">
+    <useDefaultName>true</useDefaultName>
+    <name>Execute Root Command: cat value in /sys/class/gpio/gpio114</name>
+    <command>cat value</command>
+    <user></user>
+    <seContext></seContext>
+    <workingDirectory>/sys/class/gpio/gpio114</workingDirectory>
+    <timeout>300000</timeout>
+    <variableStdout>stdout</variableStdout>
+    <variableStderr>stderr</variableStderr>
+    <variableExitCode>exit_code</variableExitCode>
+  </action>
+  <action type="execute_root_command">
+    <useDefaultName>true</useDefaultName>
+    <name>Execute Root Command: cat value in /sys/class/gpio/gpio115</name>
+    <command>cat value</command>
+    <user></user>
+    <seContext></seContext>
+    <workingDirectory>/sys/class/gpio/gpio115</workingDirectory>
+    <timeout>300000</timeout>
+    <variableStdout>stdout</variableStdout>
+    <variableStderr>stderr</variableStderr>
+    <variableExitCode>exit_code</variableExitCode>
+  </action>
+  <action type="write_http_response_text">
+    <useDefaultName>true</useDefaultName>
+    <name>Write HTTP Response Text: {stdout}</name>
+    <text>{stdout}</text>
+    <replaceVariables>true</replaceVariables>
+    <contentType>application/json</contentType>
+    <customHTTPHeaders></customHTTPHeaders>
+    <finishResponse>false</finishResponse>
+  </action>
+  <flow type="flow">
+    <name>Relay State 1</name>
+    <enabled>true</enabled>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="70.0" y="52.5">
+      <trigger>HTTP Request: /relay1state, port 8080</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="70.0" y="472.5">Write HTTP Response Text: {stdout}</actioncontainer>
+    <actioncontainer id="t3" x="70.0" y="262.5">Execute Root Command: cat value in /sys/class/gpio/gpio114</actioncontainer>
+    <connection from="t1" to="t3" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+    <connection from="t3" to="t2" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+  <flow type="flow">
+    <name>Relay State 2</name>
+    <enabled>true</enabled>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <actioncontainer id="t1" x="70.0" y="472.5">Write HTTP Response Text: {stdout}</actioncontainer>
+    <actioncontainer id="t2" x="70.0" y="262.5">Execute Root Command: cat value in /sys/class/gpio/gpio115</actioncontainer>
+    <triggercontainer id="t3" x="70.0" y="52.5">
+      <trigger>HTTP Request: /relay2state, port 8080</trigger>
+    </triggercontainer>
+    <connection from="t2" to="t1" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+    <connection from="t3" to="t2" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+</data>
