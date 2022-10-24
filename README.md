@@ -82,7 +82,7 @@ switch:
       s6e_relay_1:
         friendly_name: "T6E - Relay 1"
         unique_id: "t6erelay1"
-        value_template: "{{ is_state('sensor.relay_1_state', 1) }}"
+        value_template: "{{ is_state('sensor.relay_1_state', '1') }}"
         turn_on:
           service: rest_command.relay1on
         turn_off:
@@ -91,7 +91,7 @@ switch:
       s6e_relay_2:
         friendly_name: "T6E - Relay 2"
         unique_id: "t6erelay2"
-        value_template: "{{ is_state('sensor.relay_2_state', 1) }}"
+        value_template: "{{ is_state('sensor.relay_2_state', '1') }}"
         turn_on:
           service: rest_command.relay2on
         turn_off:
