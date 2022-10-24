@@ -94,4 +94,6 @@ https://user-images.githubusercontent.com/92814513/197577183-cdf58e7d-cf90-43f9-
 
 Its not the best method because, if the network or homeassistant goes down. You lose functionality of the switch. This can be easily countered by using the Test Application for emergency purposes or creating a new APK that executes the ADB Shell Command.
 
+I am still figuring out how to return the states.
+
 ## Big Thanks to Blakadder for pointing me in the right direction on Twitter!
