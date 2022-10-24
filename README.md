@@ -48,10 +48,30 @@ rest_command:
   relay2off:
     url: http://192.168.2.162:8080/relay2off
 ```
+### IMPORTANT: While you are at it, input these Restful Sensors as well to report back the state. Remember to upload relaystate.xml into AutoMagic
+
+This will essentially retrieve HTTP JSON Response from the Panel to check for the state of the Switch.
+
+```
+sensor:  
+- platform: rest
+  resource: http://192.168.2.162:8080/relay1state
+  name: Relay 1 State
+  scan_interval: 1
+  value_template: "{{ value_json }}"
+
+- platform: rest
+  resource: http://192.168.2.162:8080/relay2state
+  name: Relay 1 State
+  scan_interval: 1
+  value_template: "{{ value_json }}"
+```
 
 ### 4. Restart Home Assistant and check if you have the following REST services.
 
 ![image](https://user-images.githubusercontent.com/92814513/197571538-8e0fc0a1-8f40-431f-b854-e7feaf9486b3.png)
+
+
 
 ### 5. Create Template Switches to Control the Relays.
 
@@ -62,6 +82,7 @@ switch:
       s6e_relay_1:
         friendly_name: "T6E - Relay 1"
         unique_id: "t6erelay1"
+        value_template: "{{ is_state('sensor.relay_1_state', 1) }}"
         turn_on:
           service: rest_command.relay1on
         turn_off:
@@ -70,6 +91,7 @@ switch:
       s6e_relay_2:
         friendly_name: "T6E - Relay 2"
         unique_id: "t6erelay2"
+        value_template: "{{ is_state('sensor.relay_2_state', 1) }}"
         turn_on:
           service: rest_command.relay2on
         turn_off:
@@ -93,7 +115,5 @@ https://user-images.githubusercontent.com/92814513/197577183-cdf58e7d-cf90-43f9-
 ### Disclaimer:
 
 Its not the best method because, if the network or homeassistant goes down. You lose functionality of the switch. This can be easily countered by using the Test Application for emergency purposes or creating a new APK that executes the ADB Shell Command.
-
-I am still figuring out how to return the states.
 
 ## Big Thanks to Blakadder for pointing me in the right direction on Twitter!
