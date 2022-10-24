@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<data version="1.38.0">
+  <trigger type="http_request">
+    <useDefaultName>true</useDefaultName>
+    <name>HTTP Request: /relay1off, port 8080</name>
+    <enabled>true</enabled>
+    <path>/relay1off</path>
+    <port>8080</port>
+    <bindToWifiOnly>false</bindToWifiOnly>
+    <acquireWifiLock>true</acquireWifiLock>
+    <finishResponse>false</finishResponse>
+  </trigger>
+  <trigger type="http_request">
+    <useDefaultName>true</useDefaultName>
+    <name>HTTP Request: /relay1on, port 8080</name>
+    <enabled>true</enabled>
+    <path>/relay1on</path>
+    <port>8080</port>
+    <bindToWifiOnly>false</bindToWifiOnly>
+    <acquireWifiLock>true</acquireWifiLock>
+    <finishResponse>false</finishResponse>
+  </trigger>
+  <trigger type="http_request">
+    <useDefaultName>true</useDefaultName>
+    <name>HTTP Request: /relay2off, port 8080</name>
+    <enabled>true</enabled>
+    <path>/relay2off</path>
+    <port>8080</port>
+    <bindToWifiOnly>false</bindToWifiOnly>
+    <acquireWifiLock>true</acquireWifiLock>
+    <finishResponse>false</finishResponse>
+  </trigger>
+  <trigger type="http_request">
+    <useDefaultName>true</useDefaultName>
+    <name>HTTP Request: /relay2on, port 8080</name>
+    <enabled>true</enabled>
+    <path>/relay2on</path>
+    <port>8080</port>
+    <bindToWifiOnly>false</bindToWifiOnly>
+    <acquireWifiLock>true</acquireWifiLock>
+    <finishResponse>false</finishResponse>
+  </trigger>
+  <action type="execute_root_command">
+    <useDefaultName>true</useDefaultName>
+    <name>Execute Root Command: echo 0 &gt; /sys/class/gpio/gpio114/value in </name>
+    <command>echo 0 &gt; /sys/class/gpio/gpio114/value</command>
+    <user></user>
+    <seContext></seContext>
+    <workingDirectory></workingDirectory>
+    <timeout>300000</timeout>
+    <variableStdout>stdout</variableStdout>
+    <variableStderr>stderr</variableStderr>
+    <variableExitCode>exit_code</variableExitCode>
+  </action>
+  <action type="execute_root_command">
+    <useDefaultName>true</useDefaultName>
+    <name>Execute Root Command: echo 0 &gt; /sys/class/gpio/gpio115/value in </name>
+    <command>echo 0 &gt; /sys/class/gpio/gpio115/value</command>
+    <user></user>
+    <seContext></seContext>
+    <workingDirectory></workingDirectory>
+    <timeout>300000</timeout>
+    <variableStdout>stdout</variableStdout>
+    <variableStderr>stderr</variableStderr>
+    <variableExitCode>exit_code</variableExitCode>
+  </action>
+  <action type="execute_root_command">
+    <useDefaultName>true</useDefaultName>
+    <name>Execute Root Command: echo 1 &gt; /sys/class/gpio/gpio114/value in </name>
+    <command>echo 1 &gt; /sys/class/gpio/gpio114/value</command>
+    <user></user>
+    <seContext></seContext>
+    <workingDirectory></workingDirectory>
+    <timeout>300000</timeout>
+    <variableStdout>stdout</variableStdout>
+    <variableStderr>stderr</variableStderr>
+    <variableExitCode>exit_code</variableExitCode>
+  </action>
+  <action type="execute_root_command">
+    <useDefaultName>true</useDefaultName>
+    <name>Execute Root Command: echo 1 &gt; /sys/class/gpio/gpio115/value in </name>
+    <command>echo 1 &gt; /sys/class/gpio/gpio115/value</command>
+    <user></user>
+    <seContext></seContext>
+    <workingDirectory></workingDirectory>
+    <timeout>300000</timeout>
+    <variableStdout>stdout</variableStdout>
+    <variableStderr>stderr</variableStderr>
+    <variableExitCode>exit_code</variableExitCode>
+  </action>
+  <flow type="flow">
+    <name>Off Relay 1</name>
+    <enabled>true</enabled>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="70.0" y="52.5">
+      <trigger>HTTP Request: /relay1off, port 8080</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="70.0" y="262.5">Execute Root Command: echo 0 &gt; /sys/class/gpio/gpio114/value in </actioncontainer>
+    <connection from="t1" to="t2" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+  <flow type="flow">
+    <name>Off Relay 2</name>
+    <enabled>true</enabled>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="70.0" y="52.5">
+      <trigger>HTTP Request: /relay2off, port 8080</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="70.0" y="262.5">Execute Root Command: echo 0 &gt; /sys/class/gpio/gpio115/value in </actioncontainer>
+    <connection from="t1" to="t2" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+  <flow type="flow">
+    <name>On Relay 1</name>
+    <enabled>true</enabled>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <actioncontainer id="t1" x="-70.0" y="262.5">Execute Root Command: echo 1 &gt; /sys/class/gpio/gpio114/value in </actioncontainer>
+    <triggercontainer id="t2" x="175.0" y="52.5">
+      <trigger>HTTP Request: /relay1on, port 8080</trigger>
+    </triggercontainer>
+    <connection from="t2" to="t1" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+  <flow type="flow">
+    <name>On Relay 2</name>
+    <enabled>true</enabled>
+    <executionPolicy>PARALLEL</executionPolicy>
+    <triggercontainer id="t1" x="70.0" y="52.5">
+      <trigger>HTTP Request: /relay2on, port 8080</trigger>
+    </triggercontainer>
+    <actioncontainer id="t2" x="70.0" y="332.5">Execute Root Command: echo 1 &gt; /sys/class/gpio/gpio115/value in </actioncontainer>
+    <connection from="t1" to="t2" type="NORMAL" sourcePosition="SOUTH" targetPosition="NORTH" />
+  </flow>
+</data>
